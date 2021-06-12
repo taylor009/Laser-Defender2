@@ -138,6 +138,10 @@ PrefabInstance:
       propertyPath: projectileSpeed
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 6272999196428191040, guid: 5520ffdf1a583bd4a984f2e6a893ded0, type: 3}
+      propertyPath: projectileFiringPeriod
+      value: 0.05
+      objectReference: {fileID: 0}
     - target: {fileID: 6272999196428191045, guid: 5520ffdf1a583bd4a984f2e6a893ded0, type: 3}
       propertyPath: m_Name
       value: Player
