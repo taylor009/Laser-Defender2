@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Schema;
+using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -8,6 +9,8 @@ public class Player : MonoBehaviour
     // config params
     [SerializeField] private float moveSpeed = 10f;
     [SerializeField] private float padding = 1f;
+    [SerializeField] private GameObject laserPrefab;
+    [SerializeField] private float projectileSpeed = 10f;
 
     private float xMin;
     private float xMax;
@@ -20,6 +23,22 @@ public class Player : MonoBehaviour
     {
         SetUpMoveBoundaries();
     }
+    
+    // Update is called once per frame
+    void Update()
+    {
+        Move();
+        Fire();
+    }
+
+    private void Fire()
+    {
+        if (Input.GetButtonDown("Fire1"))
+        {
+           var laser = Instantiate(laserPrefab, transform.position, Quaternion.identity) as GameObject;
+           laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, projectileSpeed);
+        }
+    }
 
     private void SetUpMoveBoundaries()
     {
@@ -29,12 +48,6 @@ public class Player : MonoBehaviour
         
         yMin = gameCamera.ViewportToWorldPoint(new Vector3(0,0, 0)).y + padding;
         yMax = gameCamera.ViewportToWorldPoint(new Vector3(0, 1, 0)).y - padding;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        Move();
     }
 
     private void Move()
